@@ -14,9 +14,27 @@
     },
     {
       "id": 3,
-      "name": "الدمام", 
+      "name": "الدمام",
       "totalProjects": 4,
       "color": "dammam"
     }
-  ]
+  ],
+  "projects": {
+    "sly": [
+      {
+        "id": 1,
+        "name": "SLY-1001",
+        "location": "الرياض - حي الصحافة",
+        "totalApartments": 10
+      }
+    ],
+    "umh": [
+      {
+        "id": 1,
+        "name": "UMH-1001",
+        "location": "الرياض - حي الملز", 
+        "totalApartments": 12
+      }
+    ]
+  }
 }
