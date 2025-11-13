@@ -121,55 +121,24 @@
             text-align: center;
         }
         
-        .auto-update {
-            color: #00a86b;
-            font-weight: bold;
-        }
-        
-        .project-groups-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 25px;
-            margin-bottom: 40px;
-        }
-        
-        .project-group-card {
-            background: white;
+        .error {
+            color: #ff4d4d;
+            background: #ffe6e6;
+            padding: 20px;
             border-radius: 10px;
-            padding: 30px;
             text-align: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
-            border: 2px solid transparent;
+            margin: 20px 0;
+            border: 1px solid #ff4d4d;
         }
         
-        .sly-group {
-            border-color: #1e3c72;
-            background: linear-gradient(135deg, #f8f9ff, #e8eeff);
-        }
-        
-        .umh-group {
-            border-color: #00a86b;
-            background: linear-gradient(135deg, #f0fff8, #e0f7ee);
-        }
-        
-        .group-name {
-            font-size: 2rem;
-            font-weight: bold;
-            margin-bottom: 10px;
-        }
-        
-        .sly-group .group-name {
-            color: #1e3c72;
-        }
-        
-        .umh-group .group-name {
+        .success {
             color: #00a86b;
-        }
-        
-        .hidden {
-            display: none;
+            background: #e6f7ee;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            margin: 20px 0;
+            border: 1px solid #00a86b;
         }
     </style>
 </head>
@@ -181,75 +150,86 @@
         </header>
         
         <div class="status-bar">
-            <span class="auto-update">🔄 التحديث التلقائي مفعل</span> | 
+            <span style="color: #00a86b; font-weight: bold;">🔄 التحديث التلقائي مفعل</span> | 
             آخر تحديث: <span id="lastUpdate">--</span> |
             التحديث القادم خلال: <span id="nextUpdate">--</span> ثانية
         </div>
         
-        <!-- صفحة المدن -->
+        <div id="messageContainer"></div>
+        
         <div id="citiesPage">
             <h2 style="text-align: center; margin-bottom: 30px; color: #2a5298;">🏙️ مدن السعودية</h2>
             <div class="cities-grid" id="citiesContainer">
                 <div class="loading">📡 جاري تحميل البيانات من GitHub...</div>
             </div>
         </div>
-        
-        <!-- صفحة مجموعات المشاريع -->
-        <div id="projectGroupsPage" class="hidden">
-            <button class="back-btn" onclick="showCitiesPage()">← العودة للمدن</button>
-            <h2 style="text-align: center; margin-bottom: 30px; color: #2a5298;" id="cityGroupsTitle">مجموعات المشاريع</h2>
-            <div class="project-groups-grid" id="projectGroupsContainer"></div>
-        </div>
     </div>
 
     <script>
-        // 🔗 رابط البيانات على GitHub - سيتم تحديثه تلقائياً
-        const GITHUB_DATA_URL = 'https://raw.githubusercontent.com/ahmmokh75/YourRepo/main/data.json';
+        // 🔗 🔗 🔗 🔗 🔗 🔗 🔗 🔗 🔗 🔗 🔗 🔗 🔗 🔗 🔗
+        // 🔥 مهم: استبدل YourUsername باسم مستخدمك على GitHub
+        // 🔗 🔗 🔗 🔗 🔗 🔗 🔗 🔗 🔗 🔗 🔗 🔗 🔗 🔗 🔗
+        const GITHUB_DATA_URL = 'https://raw.githubusercontent.com/YourUsername/saudi-real-estate/main/data.json';
+        // 🔗 🔗 🔗 🔗 🔗 🔗 🔗 🔗 🔗 🔗 🔗 🔗 🔗 🔗 🔗
         
-        // ⚙ إعدادات التحديث
-        const UPDATE_INTERVAL = 30000; // كل 30 ثانية
+        const UPDATE_INTERVAL = 30000; // 30 ثانية
         let currentData = null;
-        let updateTimer;
 
-        // 🚀 بدء التحميل
-        loadDataFromGitHub();
-        
-        // 🔄 التحديث التلقائي
-        setInterval(loadDataFromGitHub, UPDATE_INTERVAL);
+        // دالة عرض الرسائل - تم تصحيحها
+        function showMessage(message, type) {
+            const container = document.getElementById('messageContainer');
+            if (type === 'success') {
+                container.innerHTML = `<div class="success">${message}</div>`;
+            } else if (type === 'error') {
+                container.innerHTML = `<div class="error">${message}</div>`;
+            } else {
+                container.innerHTML = `<div class="loading">${message}</div>`;
+            }
+        }
 
         async function loadDataFromGitHub() {
             try {
                 console.log('🔄 جاري تحديث البيانات...');
+                showMessage('🔄 جاري تحميل البيانات من GitHub...', 'loading');
                 
                 const timestamp = new Date().getTime();
                 const response = await fetch(`${GITHUB_DATA_URL}?t=${timestamp}`);
                 
                 if (!response.ok) {
-                    throw new Error('Network response was not ok');
+                    throw new Error(`خطأ في الشبكة: ${response.status}`);
                 }
                 
                 const newData = await response.json();
                 
-                // ✅ التحقق من وجود تغييرات في البيانات
+                // التحقق من وجود تغييرات في البيانات
                 if (JSON.stringify(newData) !== JSON.stringify(currentData)) {
                     currentData = newData;
-                    renderAllData(newData);
-                    showSuccess('✅ تم تحديث البيانات بنجاح');
+                    renderCities(newData.cities);
+                    showMessage('✅ تم تحميل البيانات بنجاح', 'success');
+                    console.log('✅ تم تحديث البيانات بنجاح');
                 } else {
-                    console.log('⚡ البيانات حالية - لا حاجة للتحديث');
+                    showMessage('⚡ البيانات حالية - لا توجد تحديثات جديدة', 'success');
                 }
                 
                 updateUIInfo();
                 
             } catch (error) {
                 console.error('❌ خطأ في تحميل البيانات:', error);
-                showError('❌ خطأ في الاتصال - جاري إعادة المحاولة...');
+                showMessage(`❌ خطأ في تحميل البيانات: ${error.message}`, 'error');
+                
+                // عرض رسالة مساعدة مفصلة
+                const helpMessage = `
+                    <div class="error">
+                        <strong>🔧 حل المشكلة:</strong><br>
+                        1. تأكد من أن اسم المستخدم في الرابط صحيح<br>
+                        2. تأكد من وجود ملف data.json في المستودع<br>
+                        3. تأكد من أن الرابط يعمل:<br>
+                        <a href="${GITHUB_DATA_URL}" target="_blank">${GITHUB_DATA_URL}</a><br>
+                        4. إذا ظهر خطأ 404، عدل الرابط في الكود
+                    </div>
+                `;
+                document.getElementById('citiesContainer').innerHTML = helpMessage;
             }
-        }
-
-        function renderAllData(data) {
-            renderCities(data.cities);
-            // يمكنك إضافة renderProjects و renderApartments هنا
         }
 
         function renderCities(cities) {
@@ -265,7 +245,7 @@
             cities.forEach(city => {
                 const card = document.createElement('div');
                 card.className = `city-card ${city.color}-card`;
-                card.onclick = () => showCityProjects(city);
+                card.onclick = () => showCityDetails(city);
                 
                 card.innerHTML = `
                     <div class="city-name">${city.name}</div>
@@ -276,47 +256,8 @@
             });
         }
 
-        function showCityProjects(city) {
-            // إخفاء صفحة المدن وإظهار صفحة المشاريع
-            document.getElementById('citiesPage').classList.add('hidden');
-            document.getElementById('projectGroupsPage').classList.remove('hidden');
-            
-            // تحديث العنوان
-            document.getElementById('cityGroupsTitle').textContent = `مجموعات مشاريع ${city.name}`;
-            
-            // عرض مجموعات المشاريع
-            renderProjectGroups(city.name);
-        }
-
-        function renderProjectGroups(cityName) {
-            const container = document.getElementById('projectGroupsContainer');
-            container.innerHTML = '';
-            
-            if (cityName === 'الرياض') {
-                const groups = [
-                    { name: 'SLY', type: 'sly', description: 'مجموعة SLY للتطوير العقاري', projects: 4 },
-                    { name: 'UMH', type: 'umh', description: 'مجموعة UMH للإنشاء والتطوير', projects: 5 }
-                ];
-                
-                groups.forEach(group => {
-                    const card = document.createElement('div');
-                    card.className = `project-group-card ${group.type}-group`;
-                    card.onclick = () => alert(`سيتم فتح مشاريع ${group.name} في ${cityName}`);
-                    
-                    card.innerHTML = `
-                        <div class="group-name">${group.name}</div>
-                        <div class="group-info">${group.description}</div>
-                        <div class="projects-count">${group.projects} مشروع</div>
-                    `;
-                    
-                    container.appendChild(card);
-                });
-            }
-        }
-
-        function showCitiesPage() {
-            document.getElementById('projectGroupsPage').classList.add('hidden');
-            document.getElementById('citiesPage').classList.remove('hidden');
+        function showCityDetails(city) {
+            alert(`🏙️ ${city.name}\n📊 عدد المشاريع: ${city.totalProjects}\n\nسيتم تطوير هذه الصفحة لعرض المشاريع`);
         }
 
         function updateUIInfo() {
@@ -325,15 +266,9 @@
             document.getElementById('nextUpdate').textContent = Math.floor(UPDATE_INTERVAL / 1000);
         }
 
-        function showSuccess(message) {
-            console.log(message);
-            // يمكنك إضافة تنبيهات بصرية هنا
-        }
-
-        function showError(message) {
-            console.error(message);
-            // يمكنك إضافة تنبيهات خطأ بصرية هنا
-        }
+        // بدء التحميل والتحديث
+        loadDataFromGitHub();
+        setInterval(loadDataFromGitHub, UPDATE_INTERVAL);
 
         // تحديث العد التنازلي كل ثانية
         setInterval(() => {
