@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="en" dir="ltr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>نظام إدارة العقارات السعودي</title>
+    <title>MANZIL PROJECTS - Saudi Real Estate Management</title>
     <style>
         * {
             margin: 0;
@@ -16,6 +16,9 @@
             background-color: #f5f7fa;
             color: #333;
             line-height: 1.6;
+            position: relative;
+            min-height: 100vh;
+            padding-bottom: 60px;
         }
         
         .container {
@@ -32,39 +35,114 @@
             border-radius: 10px;
             margin-bottom: 30px;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        header::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #00a86b, #ff9900, #ff6b6b);
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .project-info {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        
+        .signature {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            color: white;
+            text-align: center;
+            padding: 15px 0;
+            font-size: 1.1rem;
+            font-weight: 500;
+            letter-spacing: 1px;
+            z-index: 100;
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+            border-top: 3px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .signature::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #00a86b, #ff9900, #ff6b6b);
+        }
+        
+        .signature span {
+            color: #ffd166;
+            font-weight: bold;
+            margin-left: 5px;
+        }
+        
+        .back-btn {
+            background: #f0f0f0;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+        }
+        
+        .back-btn:hover {
+            background: #e0e0e0;
+            transform: translateX(-3px);
         }
         
         .cities-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 25px;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 20px;
             margin-bottom: 40px;
         }
         
         .city-card {
             background: white;
             border-radius: 10px;
-            padding: 40px 30px;
+            padding: 25px 20px;
             text-align: center;
             cursor: pointer;
             transition: all 0.3s ease;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
             border: 2px solid transparent;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 160px;
+            position: relative;
+            overflow: hidden;
         }
         
-        .riyadh-card {
-            border-color: #1e3c72;
-            background: linear-gradient(135deg, #ffffff, #f0f4ff);
-        }
-        
-        .jeddah-card {
-            border-color: #00a86b;
-            background: linear-gradient(135deg, #ffffff, #f0fff8);
-        }
-        
-        .dammam-card {
-            border-color: #ff9900;
-            background: linear-gradient(135deg, #ffffff, #fff8f0);
+        .city-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
         }
         
         .city-card:hover {
@@ -72,8 +150,32 @@
             box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
         }
         
+        .riyadh-card {
+            border-color: #1e3c72;
+        }
+        
+        .riyadh-card::before {
+            background: #1e3c72;
+        }
+        
+        .jeddah-card {
+            border-color: #00a86b;
+        }
+        
+        .jeddah-card::before {
+            background: #00a86b;
+        }
+        
+        .dammam-card {
+            border-color: #ff9900;
+        }
+        
+        .dammam-card::before {
+            background: #ff9900;
+        }
+        
         .city-name {
-            font-size: 2.2rem;
+            font-size: 1.8rem;
             font-weight: bold;
             margin-bottom: 15px;
         }
@@ -100,178 +202,1666 @@
             font-size: 1.1rem;
         }
         
-        .loading {
+        .project-groups-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+        
+        .project-group-card {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
             text-align: center;
-            padding: 40px;
-            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+            border: 2px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .project-group-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+        }
+        
+        .project-group-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+        }
+        
+        .sly-group {
+            border-color: #1e3c72;
+            background: linear-gradient(135deg, #f8f9ff, #e8eeff);
+        }
+        
+        .sly-group::before {
+            background: #1e3c72;
+        }
+        
+        .umh-group {
+            border-color: #00a86b;
+            background: linear-gradient(135deg, #f0fff8, #e0f7ee);
+        }
+        
+        .umh-group::before {
+            background: #00a86b;
+        }
+        
+        .group-name {
+            font-size: 1.6rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .sly-group .group-name {
+            color: #1e3c72;
+        }
+        
+        .umh-group .group-name {
+            color: #00a86b;
+        }
+        
+        .group-info {
+            color: #666;
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+        }
+        
+        .projects-count {
+            display: inline-block;
+            background: #e6f7ee;
+            color: #00a86b;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 0.9rem;
+            margin: 5px;
+        }
+        
+        .beds-count {
+            display: inline-block;
+            background: #fff2e5;
+            color: #ff9900;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 0.9rem;
+            margin: 5px;
+        }
+        
+        .kitchen-count {
+            display: inline-block;
+            background: #e6f0ff;
+            color: #2a5298;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 0.9rem;
+            margin: 5px;
+        }
+        
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+        
+        .project-card {
+            background: white;
+            border-radius: 10px;
+            padding: 18px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+            border: 2px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .project-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: #2a5298;
+        }
+        
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            border-color: #2a5298;
+        }
+        
+        .project-name {
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: #2a5298;
+            margin-bottom: 10px;
+        }
+        
+        .project-location {
+            font-size: 1rem;
+            color: #1e3c72;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+        
+        .apartments-count {
+            display: inline-block;
+            background: #e6f7ee;
+            color: #00a86b;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+            margin-right: 8px;
+            font-size: 0.9rem;
+        }
+        
+        .bathrooms-count {
+            display: inline-block;
+            background: #e6f0ff;
+            color: #2a5298;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+        
+        .floor-section {
+            margin-bottom: 30px;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+        }
+        
+        .floor-title {
+            font-size: 1.5rem;
+            color: #2a5298;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .apartments-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+        
+        .apartment-card {
+            background: white;
+            border-radius: 10px;
+            padding: 18px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+            border: 2px solid transparent;
+            position: relative;
+        }
+        
+        .apartment-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            border-color: #2a5298;
+        }
+        
+        .apartment-number {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #2a5298;
+            margin-bottom: 10px;
+        }
+        
+        .apartment-status {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+        
+        .status-available {
+            background-color: #e6f7ee;
+            color: #00a86b;
+        }
+        
+        .status-occupied {
+            background-color: #ffe6e6;
+            color: #ff4d4d;
+        }
+        
+        .status-reserved {
+            background-color: #fff4e6;
+            color: #ff9900;
+        }
+        
+        .apartment-details {
+            background: white;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            display: none;
+            margin-top: 20px;
+            position: relative;
+        }
+        
+        .details-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .details-title {
+            font-size: 1.6rem;
+            color: #2a5298;
+        }
+        
+        .close-btn {
+            background: #f0f0f0;
+            border: none;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            font-size: 1.1rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+        
+        .close-btn:hover {
+            background: #e0e0e0;
+        }
+        
+        .details-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 15px;
+        }
+        
+        .detail-item {
+            background: #f9f9f9;
+            padding: 12px;
+            border-radius: 8px;
+        }
+        
+        .detail-label {
+            font-weight: bold;
+            color: #666;
+            margin-bottom: 5px;
+            font-size: 0.9rem;
+        }
+        
+        .detail-value {
+            font-size: 1.1rem;
+            color: #333;
+        }
+        
+        .beds-info {
+            margin-top: 10px;
+            font-size: 0.8rem;
             color: #666;
         }
         
-        .status-bar {
+        .hidden {
+            display: none;
+        }
+        
+        .search-container {
+            margin: 20px 0;
+            display: flex;
+            gap: 10px;
+        }
+        
+        .search-input {
+            flex: 1;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+        
+        .filter-select {
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
             background: white;
-            padding: 15px;
+        }
+        
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .stat-card {
+            background: white;
             border-radius: 10px;
+            padding: 18px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+            border-left: 4px solid #2a5298;
+        }
+        
+        .stat-value {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #2a5298;
+            margin-bottom: 5px;
+        }
+        
+        .stat-label {
+            color: #666;
+            font-size: 0.8rem;
+        }
+        
+        .loading {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 40px;
+        }
+        
+        .loading-spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #2a5298;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .no-results {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 40px;
+            color: #666;
+        }
+        
+        .breadcrumb {
+            display: flex;
+            align-items: center;
             margin-bottom: 20px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            font-size: 0.9rem;
+            color: #666;
+        }
+        
+        .breadcrumb-item {
+            display: flex;
+            align-items: center;
+        }
+        
+        .breadcrumb-separator {
+            margin: 0 10px;
+            color: #999;
+        }
+        
+        .breadcrumb-current {
+            color: #2a5298;
+            font-weight: bold;
+        }
+        
+        /* أنماط لوحة التحكم */
+        .admin-panel {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+            border: 2px solid #2a5298;
+        }
+        
+        .admin-title {
+            font-size: 1.5rem;
+            color: #2a5298;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .admin-controls {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .admin-btn {
+            background: #2a5298;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+        
+        .admin-btn:hover {
+            background: #1e3c72;
+        }
+        
+        .edit-form {
+            background: #f9f9f9;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+            display: none;
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #333;
+        }
+        
+        .form-input {
+            width: 100%;
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+        
+        .form-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        
+        .save-btn {
+            background: #00a86b;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        
+        .cancel-btn {
+            background: #ff6b6b;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        
+        .edit-btn {
+            background: #ff9900;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            margin-top: 10px;
+        }
+        
+        .delete-btn {
+            background: #ff6b6b;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            margin-top: 5px;
+        }
+        
+        .auth-panel {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+            border: 2px solid #2a5298;
             text-align: center;
         }
         
-        .success {
-            color: #00a86b;
-            background: #e6f7ee;
-            padding: 20px;
-            border-radius: 10px;
-            text-align: center;
-            margin: 20px 0;
-            border: 1px solid #00a86b;
+        .auth-title {
+            font-size: 1.5rem;
+            color: #2a5298;
+            margin-bottom: 15px;
         }
         
-        .error {
-            color: #ff4d4d;
-            background: #ffe6e6;
-            padding: 20px;
-            border-radius: 10px;
-            text-align: center;
-            margin: 20px 0;
-            border: 1px solid #ff4d4d;
+        .auth-input {
+            width: 100%;
+            padding: 10px 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+            margin-bottom: 15px;
+        }
+        
+        .auth-btn {
+            background: #2a5298;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+        
+        .auth-btn:hover {
+            background: #1e3c72;
+        }
+        
+        .auth-message {
+            margin-top: 10px;
+            color: #ff6b6b;
+            font-size: 0.9rem;
+        }
+        
+        .add-apartment-btn, .add-floor-btn {
+            background: #00a86b;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+        
+        .floor-management {
+            background: #f9f9f9;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        
+        .floor-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        
+        .floor-item {
+            background: white;
+            padding: 10px 15px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        @media (max-width: 768px) {
+            .cities-grid, .project-groups-grid, .projects-grid, .apartments-grid {
+                grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .search-container {
+                flex-direction: column;
+            }
+            
+            .details-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .signature {
+                font-size: 1rem;
+                padding: 12px 0;
+            }
+            
+            .admin-controls {
+                flex-direction: column;
+            }
+            
+            .admin-btn {
+                width: 100%;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
         <header>
-            <h1>🇸🇦 نظام إدارة المشاريع العقارية السعودي</h1>
-            <p>التحديث التلقائي - لا يحتاج إعادة إرسال 🚀</p>
+            <h1>MANZIL PROJECTS</h1>
+            <p class="project-info">Manage all your real estate projects in Saudi cities</p>
         </header>
         
-        <div class="status-bar">
-            <span style="color: #00a86b; font-weight: bold;">🔄 التحديث التلقائي مفعل</span> | 
-            آخر تحديث: <span id="lastUpdate">--</span> |
-            التحديث القادم خلال: <span id="nextUpdate">--</span> ثانية
+        <!-- لوحة المصادقة -->
+        <div class="auth-panel" id="authPanel">
+            <h2 class="auth-title">🔐 Authentication Required</h2>
+            <p>Enter password to enable editing features</p>
+            <input type="password" class="auth-input" id="passwordInput" placeholder="Enter password">
+            <button class="auth-btn" id="authBtn">Authenticate</button>
+            <div class="auth-message" id="authMessage"></div>
         </div>
         
-        <div id="messageContainer"></div>
+        <!-- لوحة التحكم -->
+        <div class="admin-panel hidden" id="adminPanel">
+            <h2 class="admin-title">🔧 Control Panel</h2>
+            <div class="admin-controls">
+                <button class="admin-btn" id="addCity">Add City</button>
+                <button class="admin-btn" id="addGroup">Add Project Group</button>
+                <button class="admin-btn" id="addProject">Add Project</button>
+                <button class="admin-btn" id="saveData">Save Data</button>
+                <button class="admin-btn" id="loadData">Load Data</button>
+                <button class="admin-btn" id="exportData">Export Data</button>
+                <button class="admin-btn" id="importData">Import Data</button>
+            </div>
+            
+            <!-- نموذج إضافة مدينة -->
+            <div class="edit-form" id="cityForm">
+                <h3>Add New City</h3>
+                <div class="form-group">
+                    <label class="form-label">City Name</label>
+                    <input type="text" class="form-input" id="cityNameInput" placeholder="Enter city name">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Number of Projects</label>
+                    <input type="number" class="form-input" id="cityProjectsInput" value="0" min="0">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Color</label>
+                    <select class="form-input" id="cityColorInput">
+                        <option value="riyadh">Blue (Riyadh)</option>
+                        <option value="jeddah">Green (Jeddah)</option>
+                        <option value="dammam">Orange (Dammam)</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Description</label>
+                    <textarea class="form-input" id="cityDescInput" placeholder="Enter city description" rows="3"></textarea>
+                </div>
+                <div class="form-actions">
+                    <button class="save-btn" id="saveCity">Save City</button>
+                    <button class="cancel-btn" id="cancelCity">Cancel</button>
+                </div>
+            </div>
+            
+            <!-- نموذج إضافة مجموعة مشاريع -->
+            <div class="edit-form" id="groupForm">
+                <h3>Add New Project Group</h3>
+                <div class="form-group">
+                    <label class="form-label">Group Name</label>
+                    <input type="text" class="form-input" id="groupNameInput" placeholder="Enter group name">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Description</label>
+                    <input type="text" class="form-input" id="groupDescInput" placeholder="Enter group description">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Number of Projects</label>
+                    <input type="number" class="form-input" id="groupProjectsInput" value="0" min="0">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">City</label>
+                    <select class="form-input" id="groupCityInput">
+                        <option value="">Select City</option>
+                    </select>
+                </div>
+                <div class="form-actions">
+                    <button class="save-btn" id="saveGroup">Save Group</button>
+                    <button class="cancel-btn" id="cancelGroup">Cancel</button>
+                </div>
+            </div>
+
+            <!-- نموذج إضافة مشروع -->
+            <div class="edit-form" id="projectForm">
+                <h3>Add New Project</h3>
+                <div class="form-group">
+                    <label class="form-label">Project Name</label>
+                    <input type="text" class="form-input" id="projectNameInput" placeholder="Enter project name">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Location</label>
+                    <input type="text" class="form-input" id="projectLocationInput" placeholder="Enter project location">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Number of Apartments</label>
+                    <input type="number" class="form-input" id="projectApartmentsInput" value="0" min="0">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Number of Bathrooms</label>
+                    <input type="number" class="form-input" id="projectBathroomsInput" value="0" min="0">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Group</label>
+                    <select class="form-input" id="projectGroupInput">
+                        <option value="">Select Group</option>
+                    </select>
+                </div>
+                <div class="form-actions">
+                    <button class="save-btn" id="saveProject">Save Project</button>
+                    <button class="cancel-btn" id="cancelProject">Cancel</button>
+                </div>
+            </div>
+        </div>
         
+        <!-- Breadcrumb Navigation -->
+        <div class="breadcrumb" id="breadcrumb">
+            <div class="breadcrumb-item breadcrumb-current">Cities</div>
+        </div>
+        
+        <!-- Cities Page -->
         <div id="citiesPage">
-            <h2 style="text-align: center; margin-bottom: 30px; color: #2a5298;">🏙️ مدن السعودية</h2>
+            <div class="stats-container">
+                <div class="stat-card">
+                    <div class="stat-value" id="totalCities">0</div>
+                    <div class="stat-label">Cities</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="totalProjects">0</div>
+                    <div class="stat-label">Total Projects</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="totalApartments">0</div>
+                    <div class="stat-label">Total Apartments</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="totalBeds">0</div>
+                    <div class="stat-label">Total Beds</div>
+                </div>
+            </div>
+            
+            <h2 style="text-align: center; margin-bottom: 30px; color: #2a5298;">Saudi Cities</h2>
             <div class="cities-grid" id="citiesContainer">
-                <div class="loading">📡 جاري تحميل البيانات...</div>
+                <!-- Cities will be added here by JavaScript -->
+            </div>
+        </div>
+        
+        <!-- Project Groups Page -->
+        <div id="projectGroupsPage" class="hidden">
+            <button class="back-btn" id="backToCities">
+                ← Back to Cities
+            </button>
+            
+            <header>
+                <h1 id="cityTitle">City Projects</h1>
+                <p class="project-info" id="cityDetails">Manage real estate projects in the city</p>
+            </header>
+            
+            <div class="project-groups-grid" id="projectGroupsContainer">
+                <!-- Project groups will be added here by JavaScript -->
+            </div>
+        </div>
+        
+        <!-- Projects Page -->
+        <div id="projectsPage" class="hidden">
+            <button class="back-btn" id="backToProjectGroups">
+                ← Back to Project Groups
+            </button>
+            
+            <header>
+                <h1 id="groupTitle">Group Projects</h1>
+                <p class="project-info" id="groupDetails">Real estate projects in the group</p>
+            </header>
+            
+            <div class="projects-grid" id="projectsContainer">
+                <!-- Projects will be added here by JavaScript -->
+            </div>
+        </div>
+        
+        <!-- Apartments Page -->
+        <div id="apartmentsPage" class="hidden">
+            <button class="back-btn" id="backToProjects">
+                ← Back to Projects
+            </button>
+            
+            <header>
+                <h1 id="projectTitle">Project</h1>
+                <p class="project-info" id="projectDetails">Project details</p>
+            </header>
+            
+            <!-- إدارة الأدوار -->
+            <div class="floor-management" id="floorManagement" style="display: none;">
+                <h3>Floor Management</h3>
+                <div class="form-group">
+                    <label class="form-label">Add New Floor</label>
+                    <div style="display: flex; gap: 10px;">
+                        <input type="text" class="form-input" id="newFloorName" placeholder="Enter floor name (e.g., Ground Floor, First Floor)">
+                        <button class="add-floor-btn" id="addFloorBtn">Add Floor</button>
+                    </div>
+                </div>
+                <div class="floor-list" id="floorList">
+                    <!-- قائمة الأدوار ستظهر هنا -->
+                </div>
+            </div>
+            
+            <!-- Floors will be dynamically generated -->
+            <div id="floorsContainer">
+                <!-- Floor sections will be added here by JavaScript -->
+            </div>
+        </div>
+        
+        <!-- Apartment Details -->
+        <div class="apartment-details" id="apartmentDetails">
+            <div class="details-header">
+                <h2 class="details-title" id="detailsTitle">Apartment Details</h2>
+                <button class="close-btn" id="closeDetails">×</button>
+            </div>
+            <div class="details-content" id="detailsContent">
+                <!-- Details will be added here by JavaScript -->
             </div>
         </div>
     </div>
+    
+    <!-- توقيع Ahmed Mokhtar -->
+    <div class="signature">
+        By: <span>Ahmed Mokhtar | Operations Team 2025 © </span>
+    </div>
 
     <script>
-        // ✅ ✅ ✅ ✅ ✅ ✅ ✅ ✅ ✅ ✅ ✅ ✅ ✅ ✅ ✅
-        // تم إصلاح الرابط باسم المستخدم الصحيح
-        // ✅ ✅ ✅ ✅ ✅ ✅ ✅ ✅ ✅ ✅ ✅ ✅ ✅ ✅ ✅
-        const GITHUB_DATA_URL = 'https://raw.githubusercontent.com/ahmmokh75/saudi-real-estate/main/data.json';
-        // ✅ ✅ ✅ ✅ ✅ ✅ ✅ ✅ ✅ ✅ ✅ ✅ ✅ ✅ ✅
+        // البيانات الأساسية للتطبيق
+        let cities = [
+            {
+                id: 1,
+                name: "Riyadh",
+                totalProjects: 27,
+                color: "riyadh",
+                description: "The capital and largest city of Saudi Arabia"
+            },
+            {
+                id: 2,
+                name: "Jeddah", 
+                totalProjects: 11,
+                color: "jeddah",
+                description: "Major urban center and port on the Red Sea"
+            },
+            {
+                id: 3,
+                name: "Dammam",
+                totalProjects: 4,
+                color: "dammam",
+                description: "Capital of the Eastern Province and important port city"
+            }
+        ];
 
-        const UPDATE_INTERVAL = 30000;
-        let currentData = null;
+        let projectGroups = {
+            riyadh: [
+                {
+                    id: 1,
+                    name: "SLY",
+                    description: "AS SULY PROJECTS",
+                    totalProjects: 5,
+                    totalBeds: 0,
+                    centralKitchen: true,
+                    type: "sly"
+                },
+                {
+                    id: 2,
+                    name: "UMH", 
+                    description: "UMM AL HAMMAM PROJECTS",
+                    totalProjects: 7,
+                    totalBeds: 0,
+                    centralKitchen: false,
+                    type: "umh"
+                }
+            ],
+            jeddah: [
+                {
+                    id: 1,
+                    name: "HAM",
+                    description: "Al Hamadaniyyah Projects",
+                    totalProjects: 1,
+                    totalBeds: 0,
+                    centralKitchen: false,
+                    type: "ham"
+                }
+            ],
+            dammam: [
+                {
+                    id: 1,
+                    name: "KJH",
+                    description: "Al Khalidiyyah Al Janubiyyah Projects",
+                    totalProjects: 2,
+                    totalBeds: 0,
+                    centralKitchen: false,
+                    type: "kjh"
+                }
+            ]
+        };
 
-        function showMessage(message, type) {
-            const container = document.getElementById('messageContainer');
-            if (type === 'success') {
-                container.innerHTML = `<div class="success">${message}</div>`;
-            } else if (type === 'error') {
-                container.innerHTML = `<div class="error">${message}</div>`;
+        let projects = {
+            sly: [
+                {
+                    id: 1,
+                    name: "SLY-1001",
+                    location: "Riyadh - Al Sulay District",
+                    totalApartments: 35,
+                    totalBathrooms: 68,
+                    totalBeds: 0,
+                    centralKitchen: true,
+                    floors: ["Ground Floor", "First Floor", "Second Floor"],
+                    apartments: []
+                },
+                {
+                    id: 2,
+                    name: "SLY-1002", 
+                    location: "Riyadh - Al Sulay District",
+                    totalApartments: 19,
+                    totalBathrooms: 38,
+                    totalBeds: 0,
+                    centralKitchen: true,
+                    floors: ["Ground Floor", "First Floor", "Second Floor"],
+                    apartments: []
+                }
+            ],
+            umh: [
+                {
+                    id: 3,
+                    name: "UMH-1003",
+                    location: "Riyadh - Umm Al Hamam District", 
+                    totalApartments: 14,
+                    totalBathrooms: 28,
+                    totalBeds: 0,
+                    centralKitchen: false,
+                    floors: ["Ground Floor", "First Floor", "Second Floor"],
+                    apartments: []
+                }
+            ]
+        };
+
+        // DOM Elements
+        const citiesPage = document.getElementById('citiesPage');
+        const projectGroupsPage = document.getElementById('projectGroupsPage');
+        const projectsPage = document.getElementById('projectsPage');
+        const apartmentsPage = document.getElementById('apartmentsPage');
+        const citiesContainer = document.getElementById('citiesContainer');
+        const projectGroupsContainer = document.getElementById('projectGroupsContainer');
+        const projectsContainer = document.getElementById('projectsContainer');
+        const floorsContainer = document.getElementById('floorsContainer');
+        const floorManagement = document.getElementById('floorManagement');
+        const floorList = document.getElementById('floorList');
+        const newFloorName = document.getElementById('newFloorName');
+        const addFloorBtn = document.getElementById('addFloorBtn');
+        const backToCities = document.getElementById('backToCities');
+        const backToProjectGroups = document.getElementById('backToProjectGroups');
+        const backToProjects = document.getElementById('backToProjects');
+        const cityTitle = document.getElementById('cityTitle');
+        const cityDetails = document.getElementById('cityDetails');
+        const groupTitle = document.getElementById('groupTitle');
+        const groupDetails = document.getElementById('groupDetails');
+        const projectTitle = document.getElementById('projectTitle');
+        const projectDetails = document.getElementById('projectDetails');
+        const apartmentDetails = document.getElementById('apartmentDetails');
+        const detailsTitle = document.getElementById('detailsTitle');
+        const detailsContent = document.getElementById('detailsContent');
+        const closeDetails = document.getElementById('closeDetails');
+        const breadcrumb = document.getElementById('breadcrumb');
+        const totalCities = document.getElementById('totalCities');
+        const totalProjects = document.getElementById('totalProjects');
+        const totalApartments = document.getElementById('totalApartments');
+        const totalBeds = document.getElementById('totalBeds');
+
+        // عناصر لوحة التحكم والمصادقة
+        const authPanel = document.getElementById('authPanel');
+        const passwordInput = document.getElementById('passwordInput');
+        const authBtn = document.getElementById('authBtn');
+        const authMessage = document.getElementById('authMessage');
+        const adminPanel = document.getElementById('adminPanel');
+        const addCity = document.getElementById('addCity');
+        const addGroup = document.getElementById('addGroup');
+        const addProject = document.getElementById('addProject');
+        const saveData = document.getElementById('saveData');
+        const loadData = document.getElementById('loadData');
+        const cityForm = document.getElementById('cityForm');
+        const groupForm = document.getElementById('groupForm');
+        const projectForm = document.getElementById('projectForm');
+        const saveCity = document.getElementById('saveCity');
+        const cancelCity = document.getElementById('cancelCity');
+        const saveGroup = document.getElementById('saveGroup');
+        const cancelGroup = document.getElementById('cancelGroup');
+        const saveProject = document.getElementById('saveProject');
+        const cancelProject = document.getElementById('cancelProject');
+
+        // Current navigation state
+        let currentCity = null;
+        let currentGroup = null;
+        let currentProject = null;
+        let editMode = false;
+        const PASSWORD = "888";
+
+        // وظائف المصادقة
+        function authenticate() {
+            const password = passwordInput.value;
+            
+            if (password === PASSWORD) {
+                editMode = true;
+                authPanel.classList.add('hidden');
+                adminPanel.classList.remove('hidden');
+                authMessage.textContent = '';
+                passwordInput.value = '';
+                
+                // إعادة عرض المحتوى الحالي مع أزرار التعديل
+                if (!citiesPage.classList.contains('hidden')) {
+                    renderCities();
+                } else if (!projectGroupsPage.classList.contains('hidden')) {
+                    renderProjectGroups(currentCity);
+                } else if (!projectsPage.classList.contains('hidden')) {
+                    renderProjects(currentGroup);
+                } else if (!apartmentsPage.classList.contains('hidden')) {
+                    renderApartments(currentProject);
+                }
+                
+                alert('Authentication successful! Editing features are now enabled.');
             } else {
-                container.innerHTML = `<div class="loading">${message}</div>`;
+                authMessage.textContent = 'Incorrect password. Please try again.';
+                passwordInput.value = '';
             }
         }
 
-        async function loadDataFromGitHub() {
-            try {
-                console.log('🔄 جاري تحميل البيانات...');
-                showMessage('🔄 جاري تحميل البيانات من GitHub...', 'loading');
-                
-                const timestamp = new Date().getTime();
-                const response = await fetch(`${GITHUB_DATA_URL}?t=${timestamp}`);
-                
-                if (!response.ok) {
-                    throw new Error(`خطأ ${response.status}: ${response.statusText}`);
-                }
-                
-                const newData = await response.json();
-                
-                if (JSON.stringify(newData) !== JSON.stringify(currentData)) {
-                    currentData = newData;
-                    renderCities(newData.cities);
-                    showMessage('✅ تم تحميل البيانات بنجاح', 'success');
-                    console.log('✅ تم تحديث البيانات بنجاح');
-                }
-                
-                updateUIInfo();
-                
-            } catch (error) {
-                console.error('❌ خطأ في تحميل البيانات:', error);
-                showMessage(`❌ ${error.message}`, 'error');
-                
-                // رسالة مساعدة مفصلة
-                const helpMessage = `
-                    <div class="error">
-                        <strong>🔧 إرشادات الحل:</strong><br>
-                        1. تأكد من وجود ملف data.json في المستودع<br>
-                        2. تأكد من أن اسم المستودع "saudi-real-estate"<br>
-                        3. الرابط الحالي: <a href="${GITHUB_DATA_URL}" target="_blank">${GITHUB_DATA_URL}</a><br>
-                        4. إذا ظهر 404، أنشئ ملف data.json
-                    </div>
-                `;
-                document.getElementById('citiesContainer').innerHTML = helpMessage;
+        // Initialize statistics
+        function initializeStats() {
+            totalCities.textContent = cities.length;
+            
+            let totalProjectsCount = 0;
+            let totalApartmentsCount = 0;
+            let totalBedsCount = 0;
+            
+            // Calculate totals
+            for (const city in projectGroups) {
+                projectGroups[city].forEach(group => {
+                    totalProjectsCount += group.totalProjects;
+                });
             }
+            
+            for (const group in projects) {
+                projects[group].forEach(project => {
+                    totalApartmentsCount += project.totalApartments;
+                    totalBedsCount += project.totalBeds;
+                });
+            }
+            
+            totalProjects.textContent = totalProjectsCount;
+            totalApartments.textContent = totalApartmentsCount;
+            totalBeds.textContent = totalBedsCount;
         }
 
-        function renderCities(cities) {
-            const container = document.getElementById('citiesContainer');
+        // Show Cities Page
+        function showCitiesPage() {
+            currentCity = null;
+            currentGroup = null;
+            currentProject = null;
             
-            if (!cities || cities.length === 0) {
-                container.innerHTML = '<div class="loading">🏜️ لا توجد بيانات مدن متاحة</div>';
-                return;
-            }
+            citiesPage.classList.remove('hidden');
+            projectGroupsPage.classList.add('hidden');
+            projectsPage.classList.add('hidden');
+            apartmentsPage.classList.add('hidden');
+            apartmentDetails.style.display = 'none';
             
-            container.innerHTML = '';
+            updateBreadcrumb();
+            renderCities();
+        }
+
+        // Render Cities
+        function renderCities() {
+            citiesContainer.innerHTML = '';
             
             cities.forEach(city => {
                 const card = document.createElement('div');
                 card.className = `city-card ${city.color}-card`;
-                card.onclick = () => showCityDetails(city);
+                card.dataset.id = city.id;
                 
                 card.innerHTML = `
                     <div class="city-name">${city.name}</div>
-                    <div class="projects-count">${city.totalProjects} مشروع</div>
+                    <div class="projects-count">${city.totalProjects} projects</div>
+                    <div style="margin-top: 10px; font-size: 0.9rem; color: #666;">
+                        ${city.description}
+                    </div>
+                    ${editMode ? `
+                        <div style="margin-top: 15px;">
+                            <button class="edit-btn" onclick="editCity(${city.id})">Edit</button>
+                            <button class="delete-btn" onclick="deleteCity(${city.id})">Delete</button>
+                        </div>
+                    ` : ''}
                 `;
                 
-                container.appendChild(card);
+                card.addEventListener('click', (e) => {
+                    if (!e.target.classList.contains('edit-btn') && !e.target.classList.contains('delete-btn')) {
+                        showCityProjectGroups(city);
+                    }
+                });
+                citiesContainer.appendChild(card);
             });
         }
 
-        function showCityDetails(city) {
-            alert(`🏙️ ${city.name}\n📊 عدد المشاريع: ${city.totalProjects}\n\nسيتم تطوير هذه الصفحة لعرض المشاريع`);
+        // Show City Project Groups
+        function showCityProjectGroups(city) {
+            currentCity = city;
+            currentGroup = null;
+            currentProject = null;
+            
+            cityTitle.textContent = `${city.name} Projects`;
+            cityDetails.textContent = city.description;
+            
+            citiesPage.classList.add('hidden');
+            projectGroupsPage.classList.remove('hidden');
+            projectsPage.classList.add('hidden');
+            apartmentsPage.classList.add('hidden');
+            apartmentDetails.style.display = 'none';
+            
+            renderProjectGroups(city);
+            updateBreadcrumb(city);
         }
 
-        function updateUIInfo() {
-            const now = new Date();
-            document.getElementById('lastUpdate').textContent = now.toLocaleTimeString();
-            document.getElementById('nextUpdate').textContent = Math.floor(UPDATE_INTERVAL / 1000);
+        // Render Project Groups
+        function renderProjectGroups(city) {
+            projectGroupsContainer.innerHTML = '';
+            const cityProjectGroups = projectGroups[city.color] || [];
+            
+            cityProjectGroups.forEach(group => {
+                const card = document.createElement('div');
+                card.className = `project-group-card ${group.type}-group`;
+                card.dataset.id = group.id;
+                
+                card.innerHTML = `
+                    <div class="group-name">${group.name}</div>
+                    <div class="group-info">${group.description}</div>
+                    <div class="projects-count">${group.totalProjects} projects</div>
+                    <div class="beds-count">${group.totalBeds} beds</div>
+                    ${group.centralKitchen ? '<div class="kitchen-count">Central Kitchen</div>' : ''}
+                    ${editMode ? `
+                        <div style="margin-top: 15px;">
+                            <button class="edit-btn" onclick="editGroup('${city.color}', ${group.id})">Edit</button>
+                            <button class="delete-btn" onclick="deleteGroup('${city.color}', ${group.id})">Delete</button>
+                        </div>
+                    ` : ''}
+                `;
+                
+                card.addEventListener('click', (e) => {
+                    if (!e.target.classList.contains('edit-btn') && !e.target.classList.contains('delete-btn')) {
+                        showGroupProjects(group, city.name);
+                    }
+                });
+                projectGroupsContainer.appendChild(card);
+            });
         }
 
-        // بدء التحميل والتحديث
-        loadDataFromGitHub();
-        setInterval(loadDataFromGitHub, UPDATE_INTERVAL);
+        // Show Group Projects
+        function showGroupProjects(group, cityName) {
+            currentGroup = group;
+            currentProject = null;
+            
+            groupTitle.textContent = `${group.name} Projects`;
+            groupDetails.textContent = `${group.description} in ${cityName}`;
+            
+            projectGroupsPage.classList.add('hidden');
+            projectsPage.classList.remove('hidden');
+            apartmentsPage.classList.add('hidden');
+            apartmentDetails.style.display = 'none';
+            
+            renderProjects(group);
+            updateBreadcrumb(currentCity, group);
+        }
 
-        // تحديث العد التنازلي
-        setInterval(() => {
-            const nextUpdateElement = document.getElementById('nextUpdate');
-            let seconds = parseInt(nextUpdateElement.textContent);
-            if (seconds > 0) {
-                nextUpdateElement.textContent = seconds - 1;
+        // Render Projects
+        function renderProjects(group) {
+            projectsContainer.innerHTML = '';
+            const groupProjects = projects[group.type] || [];
+            
+            groupProjects.forEach(project => {
+                const card = document.createElement('div');
+                card.className = 'project-card';
+                card.dataset.id = project.id;
+                
+                card.innerHTML = `
+                    <div class="project-name">${project.name}</div>
+                    <div class="project-location">${project.location}</div>
+                    <div>
+                        <div class="apartments-count">${project.totalApartments} apartments</div>
+                        <div class="bathrooms-count">${project.totalBathrooms} bathrooms</div>
+                        <div class="beds-count">${project.totalBeds} beds</div>
+                        ${project.centralKitchen ? '<div class="kitchen-count">Central Kitchen</div>' : ''}
+                    </div>
+                    ${editMode ? `
+                        <div style="margin-top: 15px;">
+                            <button class="edit-btn" onclick="editProject('${group.type}', ${project.id})">Edit</button>
+                            <button class="delete-btn" onclick="deleteProject('${group.type}', ${project.id})">Delete</button>
+                        </div>
+                    ` : ''}
+                `;
+                
+                card.addEventListener('click', (e) => {
+                    if (!e.target.classList.contains('edit-btn') && !e.target.classList.contains('delete-btn')) {
+                        showProjectApartments(project);
+                    }
+                });
+                projectsContainer.appendChild(card);
+            });
+        }
+
+        // Show Project Apartments
+        function showProjectApartments(project) {
+            currentProject = project;
+            
+            projectTitle.textContent = `Project ${project.name}`;
+            projectDetails.textContent = `${project.location} - Total Apartments: ${project.totalApartments} - Total Bathrooms: ${project.totalBathrooms}`;
+            
+            projectsPage.classList.add('hidden');
+            apartmentsPage.classList.remove('hidden');
+            apartmentDetails.style.display = 'none';
+            
+            // إظهار أو إخفاء إدارة الأدوار بناءً على وضع التعديل
+            if (editMode) {
+                floorManagement.style.display = 'block';
+                renderFloorList();
             } else {
-                nextUpdateElement.textContent = Math.floor(UPDATE_INTERVAL / 1000);
+                floorManagement.style.display = 'none';
             }
-        }, 1000);
+            
+            renderApartments(project);
+            updateBreadcrumb(currentCity, currentGroup, project);
+        }
 
-        updateUIInfo();
+        // Render Floor List
+        function renderFloorList() {
+            if (!currentProject) return;
+            
+            floorList.innerHTML = '';
+            
+            currentProject.floors.forEach((floor, index) => {
+                const floorItem = document.createElement('div');
+                floorItem.className = 'floor-item';
+                floorItem.innerHTML = `
+                    <span>${floor}</span>
+                    <button class="delete-btn" onclick="deleteFloor(${index})">Delete</button>
+                `;
+                floorList.appendChild(floorItem);
+            });
+        }
+
+        // Add New Floor
+        addFloorBtn.addEventListener('click', function() {
+            if (!currentProject) return;
+            
+            const floorName = newFloorName.value.trim();
+            if (!floorName) {
+                alert('Please enter a floor name');
+                return;
+            }
+            
+            if (currentProject.floors.includes(floorName)) {
+                alert('This floor already exists');
+                return;
+            }
+            
+            currentProject.floors.push(floorName);
+            newFloorName.value = '';
+            
+            renderFloorList();
+            renderApartments(currentProject);
+            saveToLocalStorage();
+            
+            alert(`Floor "${floorName}" added successfully!`);
+        });
+
+        // Delete Floor
+        function deleteFloor(floorIndex) {
+            if (!currentProject) return;
+            
+            if (!confirm('Are you sure you want to delete this floor? All apartments on this floor will be deleted.')) {
+                return;
+            }
+            
+            const floorName = currentProject.floors[floorIndex];
+            
+            // حذف جميع الشقق في هذا الدور
+            currentProject.apartments = currentProject.apartments.filter(apt => apt.floor !== floorName);
+            
+            // حذف الدور
+            currentProject.floors.splice(floorIndex, 1);
+            
+            // تحديث الإحصائيات
+            currentProject.totalApartments = currentProject.apartments.length;
+            currentProject.totalBathrooms = currentProject.apartments.reduce((sum, apt) => sum + apt.bathrooms, 0);
+            currentProject.totalBeds = currentProject.apartments.reduce((sum, apt) => sum + apt.beds, 0);
+            
+            renderFloorList();
+            renderApartments(currentProject);
+            initializeStats();
+            saveToLocalStorage();
+            
+            alert(`Floor "${floorName}" deleted successfully!`);
+        }
+
+        // Render Apartments
+        function renderApartments(project) {
+            floorsContainer.innerHTML = '';
+            
+            if (!project.floors || project.floors.length === 0) {
+                floorsContainer.innerHTML = `
+                    <div class="floor-section">
+                        <h2 class="floor-title">Project Information</h2>
+                        <div style="text-align: center; padding: 40px;">
+                            <div style="font-size: 1.2rem; color: #666; margin-bottom: 20px;">
+                                🏠 No Floors Available
+                            </div>
+                            <div style="color: #999;">
+                                ${editMode ? 'Use the "Add Floor" section to add floors to this project' : 'No floors have been added to this project yet'}
+                            </div>
+                            <div style="margin-top: 20px;">
+                                <div class="apartments-count" style="display: inline-block; margin: 5px;">${project.totalApartments} apartments</div>
+                                <div class="bathrooms-count" style="display: inline-block; margin: 5px;">${project.totalBathrooms} bathrooms</div>
+                                <div class="beds-count" style="display: inline-block; margin: 5px;">${project.totalBeds} beds</div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                return;
+            }
+            
+            // إنشاء أقسام لكل دور
+            project.floors.forEach(floor => {
+                const floorApartments = project.apartments.filter(apt => apt.floor === floor);
+                
+                const floorSection = document.createElement('div');
+                floorSection.className = 'floor-section';
+                
+                floorSection.innerHTML = `
+                    <h2 class="floor-title">
+                        ${floor} - ${floorApartments.length} Apartments
+                        ${editMode ? `<button class="add-apartment-btn" onclick="addNewApartment('${currentGroup.type}', ${project.id}, '${floor}')">+ Add Apartment</button>` : ''}
+                    </h2>
+                    <div class="apartments-grid" id="floor-${floor}">
+                        ${floorApartments.length > 0 ? 
+                            floorApartments.map(apartment => `
+                                <div class="apartment-card" data-id="${apartment.id}">
+                                    <div class="apartment-number">${apartment.number}</div>
+                                    <div class="apartment-status status-${apartment.status}">${apartment.status}</div>
+                                    <div style="margin-top: 10px; font-size: 0.9rem;">
+                                        ${apartment.rooms} Rooms • ${apartment.bathrooms} Bathrooms
+                                    </div>
+                                    <div style="margin-top: 5px; font-size: 0.9rem;">
+                                        ${apartment.beds} Beds • ${apartment.area}
+                                    </div>
+                                    <div style="margin-top: 5px; font-weight: bold; color: #2a5298;">
+                                        ${apartment.price.toLocaleString()} SAR
+                                    </div>
+                                    ${editMode ? `
+                                        <div style="margin-top: 15px;">
+                                            <button class="edit-btn" onclick="editApartment('${currentGroup.type}', ${project.id}, ${apartment.id})">Edit</button>
+                                            <button class="delete-btn" onclick="deleteApartment('${currentGroup.type}', ${project.id}, ${apartment.id})">Delete</button>
+                                        </div>
+                                    ` : ''}
+                                </div>
+                            `).join('') :
+                            `<div style="grid-column: 1 / -1; text-align: center; padding: 40px; color: #666;">
+                                No apartments on this floor
+                            </div>`
+                        }
+                    </div>
+                `;
+                
+                floorsContainer.appendChild(floorSection);
+            });
+        }
+
+        // وظائف إدارة الشقق
+        function addNewApartment(groupType, projectId, floor = "Ground Floor") {
+            if (!editMode) {
+                alert('Please authenticate first to add apartments.');
+                return;
+            }
+            
+            const project = projects[groupType].find(p => p.id === projectId);
+            if (!project) return;
+            
+            // إنشاء شقة جديدة
+            const newApartmentId = project.apartments.length > 0 ? Math.max(...project.apartments.map(a => a.id)) + 1 : 1;
+            const apartmentNumber = `${project.name}-${String(project.apartments.length + 1).padStart(2, '0')}`;
+            
+            const newApartment = {
+                id: newApartmentId,
+                number: apartmentNumber,
+                rooms: 2,
+                bathrooms: 1,
+                beds: 4,
+                area: "80m²",
+                floor: floor,
+                status: "available",
+                price: 1000000,
+                balcony: false,
+                features: ["Air Conditioning", "Unfurnished", "Parking"]
+            };
+            
+            project.apartments.push(newApartment);
+            project.totalApartments = project.apartments.length;
+            project.totalBathrooms = project.apartments.reduce((sum, apt) => sum + apt.bathrooms, 0);
+            project.totalBeds = project.apartments.reduce((sum, apt) => sum + apt.beds, 0);
+            
+            // تحديث الإحصائيات
+            initializeStats();
+            
+            // إعادة عرض الشقق
+            renderApartments(project);
+            saveToLocalStorage();
+            
+            alert(`Apartment ${apartmentNumber} added successfully!`);
+        }
+
+        function editApartment(groupType, projectId, apartmentId) {
+            if (!editMode) {
+                alert('Please authenticate first to edit apartments.');
+                return;
+            }
+            
+            const project = projects[groupType].find(p => p.id === projectId);
+            if (!project) return;
+            
+            const apartment = project.apartments.find(a => a.id === apartmentId);
+            if (!apartment) return;
+            
+            // في تطبيق حقيقي، هنا نفتح نموذج تعديل
+            const newNumber = prompt("Enter apartment number:", apartment.number);
+            if (newNumber) apartment.number = newNumber;
+            
+            const newRooms = parseInt(prompt("Enter number of rooms:", apartment.rooms));
+            if (!isNaN(newRooms)) apartment.rooms = newRooms;
+            
+            const newBathrooms = parseInt(prompt("Enter number of bathrooms:", apartment.bathrooms));
+            if (!isNaN(newBathrooms)) apartment.bathrooms = newBathrooms;
+            
+            const newBeds = parseInt(prompt("Enter number of beds:", apartment.beds));
+            if (!isNaN(newBeds)) apartment.beds = newBeds;
+            
+            const newArea = prompt("Enter apartment area:", apartment.area);
+            if (newArea) apartment.area = newArea;
+            
+            const newStatus = prompt("Enter apartment status (available, occupied, reserved):", apartment.status);
+            if (newStatus && ['available', 'occupied', 'reserved'].includes(newStatus)) apartment.status = newStatus;
+            
+            const newPrice = parseInt(prompt("Enter apartment price (SAR):", apartment.price));
+            if (!isNaN(newPrice)) apartment.price = newPrice;
+            
+            const newBalcony = confirm("Does the apartment have a balcony?");
+            apartment.balcony = newBalcony;
+            
+            // تحديث إجمالي الحمامات والأسرة في المشروع
+            project.totalBathrooms = project.apartments.reduce((sum, apt) => sum + apt.bathrooms, 0);
+            project.totalBeds = project.apartments.reduce((sum, apt) => sum + apt.beds, 0);
+            
+            // إعادة عرض الشقق
+            renderApartments(project);
+            saveToLocalStorage();
+            
+            alert(`Apartment ${apartment.number} updated successfully!`);
+        }
+
+        function deleteApartment(groupType, projectId, apartmentId) {
+            if (!editMode) {
+                alert('Please authenticate first to delete apartments.');
+                return;
+            }
+            
+            if (!confirm('Are you sure you want to delete this apartment?')) return;
+            
+            const project = projects[groupType].find(p => p.id === projectId);
+            if (!project) return;
+            
+            const apartmentIndex = project.apartments.findIndex(a => a.id === apartmentId);
+            if (apartmentIndex === -1) return;
+            
+            const apartmentNumber = project.apartments[apartmentIndex].number;
+            project.apartments.splice(apartmentIndex, 1);
+            project.totalApartments = project.apartments.length;
+            project.totalBathrooms = project.apartments.reduce((sum, apt) => sum + apt.bathrooms, 0);
+            project.totalBeds = project.apartments.reduce((sum, apt) => sum + apt.beds, 0);
+            
+            // تحديث الإحصائيات
+            initializeStats();
+            
+            // إعادة عرض الشقق
+            renderApartments(project);
+            saveToLocalStorage();
+            
+            alert(`Apartment ${apartmentNumber} deleted successfully!`);
+        }
+
+        // Update breadcrumb
+        function updateBreadcrumb(city, group, project) {
+            breadcrumb.innerHTML = '';
+            
+            const citiesItem = document.createElement('div');
+            citiesItem.className = 'breadcrumb-item';
+            citiesItem.textContent = 'Cities';
+            citiesItem.style.cursor = 'pointer';
+            citiesItem.addEventListener('click', showCitiesPage);
+            breadcrumb.appendChild(citiesItem);
+            
+            if (city) {
+                const separator1 = document.createElement('div');
+                separator1.className = 'breadcrumb-separator';
+                separator1.textContent = '›';
+                breadcrumb.appendChild(separator1);
+                
+                const cityItem = document.createElement('div');
+                cityItem.className = 'breadcrumb-item';
+                cityItem.textContent = city.name;
+                cityItem.style.cursor = 'pointer';
+                cityItem.addEventListener('click', () => showCityProjectGroups(city));
+                breadcrumb.appendChild(cityItem);
+            }
+            
+            if (group) {
+                const separator2 = document.createElement('div');
+                separator2.className = 'breadcrumb-separator';
+                separator2.textContent = '›';
+                breadcrumb.appendChild(separator2);
+                
+                const groupItem = document.createElement('div');
+                groupItem.className = 'breadcrumb-item';
+                groupItem.textContent = group.name;
+                groupItem.style.cursor = 'pointer';
+                groupItem.addEventListener('click', () => showGroupProjects(group, city.name));
+                breadcrumb.appendChild(groupItem);
+            }
+            
+            if (project) {
+                const separator3 = document.createElement('div');
+                separator3.className = 'breadcrumb-separator';
+                separator3.textContent = '›';
+                breadcrumb.appendChild(separator3);
+                
+                const projectItem = document.createElement('div');
+                projectItem.className = 'breadcrumb-item breadcrumb-current';
+                projectItem.textContent = project.name;
+                breadcrumb.appendChild(projectItem);
+            }
+        }
+
+        // حفظ البيانات في LocalStorage
+        function saveToLocalStorage() {
+            const appData = {
+                cities: cities,
+                projectGroups: projectGroups,
+                projects: projects,
+                lastUpdated: new Date().toISOString()
+            };
+            localStorage.setItem('manzilProjectsData', JSON.stringify(appData));
+        }
+
+        // Event Listeners
+        backToCities.addEventListener('click', showCitiesPage);
+        backToProjectGroups.addEventListener('click', () => {
+            if (currentCity) {
+                showCityProjectGroups(currentCity);
+            }
+        });
+        backToProjects.addEventListener('click', () => {
+            if (currentCity && currentGroup) {
+                showGroupProjects(currentGroup, currentCity.name);
+            }
+        });
+        closeDetails.addEventListener('click', () => {
+            apartmentDetails.style.display = 'none';
+        });
+
+        // أحداث المصادقة
+        authBtn.addEventListener('click', authenticate);
+        passwordInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                authenticate();
+            }
+        });
+
+        // Initialize
+        initializeStats();
+        showCitiesPage();
+
+        // محاولة تحميل البيانات المحفوظة تلقائياً
+        window.addEventListener('load', () => {
+            const savedData = localStorage.getItem('manzilProjectsData');
+            if (savedData) {
+                try {
+                    const appData = JSON.parse(savedData);
+                    cities = appData.cities || cities;
+                    projectGroups = appData.projectGroups || projectGroups;
+                    projects = appData.projects || projects;
+                    initializeStats();
+                    renderCities();
+                } catch (error) {
+                    console.log('Error loading saved data:', error);
+                }
+            }
+        });
+
+        console.log('MANZIL PROJECTS System initialized successfully!');
     </script>
 </body>
 </html>
